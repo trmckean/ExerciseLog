@@ -9,7 +9,15 @@ swim_file = open("/Users/TylerMcKean/Desktop/swimlog.txt", "a+")
 
 # Prompt the user about any swimming done today
 now = datetime.datetime.now()
-dateString = "{}/{}/{}".format(now.month, now.day, now.year)
+
+# Standardize date string
+month = "{}".format(now.month)
+while len(month) < 2:
+    month = "0" + month
+day = "{}".format(now.day)
+while len(day) < 2:
+    day = "0" + day
+dateString = "{}/{}/{}".format(month, day, now.year)
 
 print "Did you swim today? {}".format(dateString)
 answer = raw_input("Y/N\n")
