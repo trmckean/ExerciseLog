@@ -4,7 +4,6 @@
 # If file exists, open the file for writing
 import datetime
 
-
 swim_file = open("/Users/TylerMcKean/Desktop/swimlog.txt", "a+")
 
 # Prompt the user about any swimming done today
