@@ -19,7 +19,7 @@ class DailySwimLog:
 
 
 # Function to get standardized date string
-def getdatestring():
+def get_date_string():
     # Standardize date string
     now = datetime.datetime.now()
     month = "{}".format(now.month)
@@ -32,9 +32,9 @@ def getdatestring():
 
 
 # Function to prompt user about if they have data to add
-def promptuser_initial(dateString):
+def prompt_user_initial(date_string):
     # Prompt the user about any swimming done today
-    print "Did you swim today? {}".format(dateString)
+    print "Did you swim today? {}".format(date_string)
     answer = raw_input("Y/N\n")
     if answer.upper() == "Y":
         return True
@@ -43,10 +43,10 @@ def promptuser_initial(dateString):
 
 
 # Function to make sure we haven't logged already today
-def checkduplicatelog(dateString, swim_file):
+def check_duplicate_log(date_string, swim_file):
     # Check and make sure we aren't adding data from same day
     mm = mmap.mmap(swim_file.fileno(), 0, access=mmap.ACCESS_READ)
-    if mm.find(dateString) != -1:
+    if mm.find(date_string) != -1:
         print "Already logged swimming today"
         return False
     else:
@@ -54,13 +54,13 @@ def checkduplicatelog(dateString, swim_file):
 
 
 # Function to write user data to the swimLog text file
-def writedata(swim_file, dateString, data):
+def write_data(swim_file, date_string, data):
     # Write data to file for storage
-    swim_file.write("{}    {} yards {} minutes\n".format(dateString, data["yards"], data["time"]))
+    swim_file.write("{}    {} yards {} minutes\n".format(date_string, data["yards"], data["time"]))
 
 
 # Function to handle user prompting and input if there's data to add
-def getuserswimdata():
+def get_user_swim_data():
     # Prompt user for how many yards and how long
     yards = raw_input("How many yards?\n")
 
@@ -83,14 +83,14 @@ def main():
     swim_file = open("/Users/TylerMcKean/Desktop/swimlog.txt", "a+")
 
     # Get current date in standardized string
-    dateString = getdatestring()
+    date_string = get_date_string()
 
     # Prompt user about swimming
-    if promptuser_initial(dateString) and checkduplicatelog(dateString, swim_file):
+    if prompt_user_initial(date_string) and check_duplicate_log(date_string, swim_file):
         # Get data from user
-        data = getuserswimdata()
+        data = get_user_swim_data()
         # Write user data to log file
-        writedata(swim_file, dateString, data)
+        write_data(swim_file, date_string, data)
 
     # Close file and end program
     print "Thank you - Exiting"
