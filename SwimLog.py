@@ -4,7 +4,9 @@
 import datetime
 import mmap
 
+
 # Class representing the controller for the program
+# noinspection PyAttributeOutsideInit
 class Controller:
     # Init and open/create file
     def __init__(self):
@@ -17,7 +19,8 @@ class Controller:
         self.todays_log = DailySwimLog(self.get_date_string())
 
     # Function to get standardized date string
-    def get_date_string(self):
+    @staticmethod
+    def get_date_string():
         # Standardize date string
         now = datetime.datetime.now()
         month = "{}".format(now.month)
@@ -94,9 +97,8 @@ class DailySwimLog:
 
 # Main function
 def main():
-
-    #Instantiate controller
-    controller = Controller
+    # Instantiate controller
+    controller = Controller()
 
     # Check and see if log should be made, then gather data and write to storage
     if controller.prompt_user_initial() and controller.check_duplicate_log():
