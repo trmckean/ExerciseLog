@@ -4,6 +4,12 @@
 import datetime
 import mmap
 
+# Class representing the controller for the program
+class Controller:
+    # Init and open/create file
+    def __init__(self):
+        self.swim_log = open("/Users/TylerMcKean/Desktop/swimlog.txt", "a+")
+
 
 # Class representing a daily log object i.e. the log containing date, yards, and minutes
 class DailySwimLog:
