@@ -66,6 +66,7 @@ def check_duplicate_log(date_string, swim_file):
 def write_data(swim_file, daily_log):
     # Write data to file for storage
     swim_file.write("{}    {} yards {} minutes\n".format(daily_log.date, daily_log.yards, daily_log.minutes))
+    print "Wrote data to log!"
 
 
 # Function to handle user prompting and input if there's data to add
