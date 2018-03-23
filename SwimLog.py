@@ -45,7 +45,7 @@ class Controller:
     def check_duplicate_log(self):
         # Check and make sure we aren't adding data from same day
         mm = mmap.mmap(self.swim_log.fileno(), 0, access=mmap.ACCESS_READ)
-        if mm.find(self.todays_log.date) != -1:
+        if mm.find(self.get_date_string()) != -1:
             print "Already logged swimming today"
             return False
         else:
