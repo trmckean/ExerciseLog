@@ -13,6 +13,15 @@ class DailySwimLog:
         self.yards = yards
         self.minutes = minutes
 
+    # Init w/ just date
+    def __init__(self, date):
+        self.date = date
+
+    # Function to set data if constructor w/ just date is used
+    def set_yards_minutes(self, yards, minutes):
+        self.yards = yards
+        self.minutes = minutes
+
     # Override __str__ to allow printing of dailySwimLog object
     def __str__(self):
         return "{} {} yards {} minutes".format(self.date, self.yards, self.minutes)
@@ -54,9 +63,9 @@ def check_duplicate_log(date_string, swim_file):
 
 
 # Function to write user data to the swimLog text file
-def write_data(swim_file, date_string, data):
+def write_data(swim_file, daily_log):
     # Write data to file for storage
-    swim_file.write("{}    {} yards {} minutes\n".format(date_string, data["yards"], data["time"]))
+    swim_file.write("{}    {} yards {} minutes\n".format(daily_log.date, daily_log.yards, daily_log.minutes))
 
 
 # Function to handle user prompting and input if there's data to add
@@ -68,10 +77,10 @@ def get_user_swim_data():
     while len(yards) < 4:
         yards = yards + " "
 
-    time = raw_input("How long did you swim for? (in minutes)\n")
+    minutes = raw_input("How long did you swim for? (in minutes)\n")
 
     # Dictionary to hold user data
-    data = {"yards": yards, "time": time}
+    data = {"yards": yards, "minutes": minutes}
 
     return data
 
@@ -82,15 +91,17 @@ def main():
     # If file exists, open the file for writing
     swim_file = open("/Users/TylerMcKean/Desktop/swimlog.txt", "a+")
 
-    # Get current date in standardized string
-    date_string = get_date_string()
+    # Instantiate daily log object
+    daily_log = DailySwimLog(get_date_string())
 
     # Prompt user about swimming
-    if prompt_user_initial(date_string) and check_duplicate_log(date_string, swim_file):
+    if prompt_user_initial(daily_log.date) and check_duplicate_log(daily_log.date, swim_file):
         # Get data from user
         data = get_user_swim_data()
+        # Add data to log object
+        daily_log.set_yards_minutes(data["yards"], data["minutes"])
         # Write user data to log file
-        write_data(swim_file, date_string, data)
+        write_data(swim_file, daily_log)
 
     # Close file and end program
     print "Thank you - Exiting"
