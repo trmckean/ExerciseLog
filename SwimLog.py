@@ -6,7 +6,6 @@ import mmap
 
 
 # Class representing the controller for the program
-# noinspection PyAttributeOutsideInit
 class Controller:
     # Init and open/create file
     def __init__(self):
@@ -99,7 +98,7 @@ class DailySwimLog:
 
     # Override __str__ to allow printing of dailySwimLog object
     def __str__(self):
-        return "{}    {} yards {} minutes".format(self.date, self.yards, self.minutes)
+        return "{}    {} yards {} minutes    {}".format(self.date, self.yards, self.minutes, self.get_pace())
 
 
 # Main function
