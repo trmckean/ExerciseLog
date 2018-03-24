@@ -54,10 +54,18 @@ class Controller:
     def get_user_swim_data(self):
         # Prompt user for how many yards and how long
         yards = raw_input("How many yards?\n")
+        # Make sure yards is a number
+        while not yards.isdigit() or int(yards) == 0:
+            print "Not a number, please enter something valid."
+            yards = raw_input("How many yards?\n")
         # Standardize written string length for increased readability
         while len(yards) < 4:
             yards = yards + " "
         minutes = raw_input("How long did you swim for? (in minutes)\n")
+        # Make sure minutes is a valid number
+        while not minutes.isdigit() or int(minutes) == 0:
+            print "Not a valid entry for minutes, please enter something valid."
+            minutes = raw_input("How long did you swim for? (in minutes)\n")
 
         # Set data for log entry object
         self.todays_log.set_yards_minutes(yards, minutes)
