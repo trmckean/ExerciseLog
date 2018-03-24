@@ -55,14 +55,16 @@ class Controller:
     def get_user_swim_data(self):
         # Prompt user for how many yards and how long
         yards = raw_input("How many yards?\n")
-
         # Standardize written string length for increased readability
         while len(yards) < 4:
             yards = yards + " "
-
         minutes = raw_input("How long did you swim for? (in minutes)\n")
 
+        # Set data for log entry object
         self.todays_log.set_yards_minutes(yards, minutes)
+
+        # Show user pace for daily activity
+        print self.todays_log.get_pace()
 
     # Function to write user data to the swimLog text file
     def write_data(self):
@@ -89,6 +91,11 @@ class DailySwimLog:
     def set_yards_minutes(self, yards, minutes):
         self.yards = yards
         self.minutes = minutes
+
+    # Function to calculate pace in yards per hour
+    def get_pace(self):
+        pace = int(self.yards) / int(self.minutes) * 60
+        return "Pace: {} yards/hour".format(pace)
 
     # Override __str__ to allow printing of dailySwimLog object
     def __str__(self):
