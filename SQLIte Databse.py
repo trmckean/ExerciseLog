@@ -35,7 +35,7 @@ class Database:
     def get_previous_dates(self):
         sql = "SELECT date FROM swim_logs"
         self.cursor.execute(sql)
-        print self.cursor.fetchall()
+        return self.cursor.fetchall()
 
 
 # Main function to execute program
@@ -46,9 +46,17 @@ def main():
     controller = SwimLog.Controller()
     if controller.prompt_user_specific():
         controller.create_log(controller.get_user_date())
-        controller.get_user_swim_data()
-        db.insert(controller.todays_log.date, controller.todays_log.get_yards(),
-                  controller.todays_log.get_minutes())
+        # TODO: Make below functionality into function and clean up breaks
+        dates = db.get_previous_dates()
+        for date in dates:
+            if not date[0] in controller.todays_log.date:
+                controller.get_user_swim_data()
+                db.insert(controller.todays_log.date, controller.todays_log.get_yards(),
+                          controller.todays_log.get_minutes())
+                break
+            else:
+                print "Can't update previously written daily logs at this point"
+                break
 
     if controller.prompt_user_initial():
         controller.create_log()
@@ -57,7 +65,6 @@ def main():
                 controller.todays_log.get_minutes())
 
     db.get_all_entries()
-    db.get_previous_dates()
 
 
 if __name__ == "__main__":
