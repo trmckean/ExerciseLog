@@ -14,8 +14,10 @@ class Controller:
         self.swim_log = open("/Users/TylerMcKean/Desktop/swimlog.txt", "a+")
 
     # Create a new log entry
-    def create_log(self):
-        self.todays_log = DailySwimLog(self.get_date_string())
+    def create_log(self, date=None):
+        if date is None:
+            self.todays_log = DailySwimLog(self.get_date_string())
+        else: self.todays_log = DailySwimLog(date)
 
     # Function to get standardized date string
     @staticmethod
@@ -39,6 +41,16 @@ class Controller:
             return True
         else:
             return False
+
+    # Function to see if user wants to add a specific day
+    def prompt_user_specific(self):
+        print "Would you like to add a specific day's log?"
+        answer = raw_input("Y/N\n")
+        return answer.upper() == "Y"
+
+    # Get specific date from user
+    def get_user_date(self):
+        return raw_input("Please enter the specific day you would like to enter: (MM/DD/YYYY)\n")
 
     # Function to make sure we haven't logged already today
     def check_duplicate_log(self):

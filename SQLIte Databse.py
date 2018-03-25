@@ -20,8 +20,9 @@ class Database:
 
     # Insert data into table
     def insert(self, date, yards, time):
-        log_entry = (date, yards, time)
-        self.cursor.execute("INSERT INTO swim_logs VALUES (?, ?, ?)", log_entry)
+        pace = yards / time * 60
+        log_entry = (date, yards, time, pace)
+        self.cursor.execute("INSERT INTO swim_logs VALUES (?, ?, ?, ?)", log_entry)
         self.connection.commit()
 
     # Return all entries in db
@@ -37,10 +38,15 @@ def main():
     db = Database()
 
     controller = SwimLog.Controller()
+    if controller.prompt_user_specific():
+        controller.create_log(controller.get_user_date())
+        controller.get_user_swim_data()
+        db.insert(controller.todays_log.date, controller.todays_log.get_yards(),
+                  controller.todays_log.get_minutes())
+
     if controller.prompt_user_initial():
         controller.create_log()
         controller.get_user_swim_data()
-
         db.insert(controller.get_date_string(), controller.todays_log.get_yards(),
                 controller.todays_log.get_minutes())
 
