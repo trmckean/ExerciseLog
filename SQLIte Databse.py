@@ -31,6 +31,12 @@ class Database:
         self.cursor.execute(sql)
         print self.cursor.fetchall()
 
+    # Return a list of all dates stored
+    def get_previous_dates(self):
+        sql = "SELECT date FROM swim_logs"
+        self.cursor.execute(sql)
+        print self.cursor.fetchall()
+
 
 # Main function to execute program
 def main():
@@ -51,6 +57,7 @@ def main():
                 controller.todays_log.get_minutes())
 
     db.get_all_entries()
+    db.get_previous_dates()
 
 
 if __name__ == "__main__":
