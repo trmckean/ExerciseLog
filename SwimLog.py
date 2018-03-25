@@ -113,8 +113,8 @@ class DailySwimLog:
 
     # Function to calculate pace in yards per hour
     def get_pace(self):
-        pace = int(self.yards) / int(self.minutes) * 60
-        return "Pace: {} yards/hour".format(pace)
+        pace = float(self.yards) / int(self.minutes) * 60
+        return int(pace)
 
     # Function to get yards
     def get_yards(self):

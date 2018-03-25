@@ -19,8 +19,7 @@ class Database:
                               """)
 
     # Insert data into table
-    def insert(self, date, yards, time):
-        pace = yards / time * 60
+    def insert(self, date, yards, time, pace):
         log_entry = (date, yards, time, pace)
         self.cursor.execute("INSERT INTO swim_logs VALUES (?, ?, ?, ?)", log_entry)
         self.connection.commit()
@@ -44,7 +43,7 @@ def main():
     db = Database()
 
     controller = SwimLog.Controller()
-    if controller.prompt_user_specific():
+    while controller.prompt_user_specific():
         controller.create_log(controller.get_user_date())
         # TODO: Make below functionality into function and clean up breaks
         dates = db.get_previous_dates()
@@ -52,7 +51,7 @@ def main():
             if not date[0] in controller.todays_log.date:
                 controller.get_user_swim_data()
                 db.insert(controller.todays_log.date, controller.todays_log.get_yards(),
-                          controller.todays_log.get_minutes())
+                          controller.todays_log.get_minutes(), controller.todays_log.get_pace())
                 break
             else:
                 print "Can't update previously written daily logs at this point"
@@ -62,7 +61,7 @@ def main():
         controller.create_log()
         controller.get_user_swim_data()
         db.insert(controller.get_date_string(), controller.todays_log.get_yards(),
-                controller.todays_log.get_minutes())
+                controller.todays_log.get_minutes(), controller.todays_log.get_pace())
 
     db.get_all_entries()
 
