@@ -36,8 +36,14 @@ class Database:
         self.cursor.execute(sql)
         return self.cursor.fetchall()
 
+    # Return the log entry with maximum pace
+    def get_max_pace(self):
+        sql = "SELECT MAX(pace) FROM swim_logs"
+        self.cursor.execute(sql)
+        return self.cursor.fetchone()
 
-# Main function to execute program
+
+# Main function to execute test program
 def main():
     # Testing implementation
     db = Database()
@@ -61,9 +67,18 @@ def main():
         controller.create_log()
         controller.get_user_swim_data()
         db.insert(controller.get_date_string(), controller.todays_log.get_yards(),
-                controller.todays_log.get_minutes(), controller.todays_log.get_pace())
+                  controller.todays_log.get_minutes(), controller.todays_log.get_pace())
+        todays_pace = controller.todays_log.get_pace()
 
-    db.get_all_entries()
+        # Check pace and notify user if they've set a new record
+        # TODO: Put following into function
+        max_pace = db.get_max_pace()[0]
+        if todays_pace > max_pace:
+            print "Nice work! You set a new pace record!"
+        elif todays_pace == max_pace:
+            print "Nice work! you matched your fastest pace!"
+        else:
+            print "Nice job, but you can swim faster next time!"
 
 
 if __name__ == "__main__":

@@ -17,7 +17,8 @@ class Controller:
     def create_log(self, date=None):
         if date is None:
             self.todays_log = DailySwimLog(self.get_date_string())
-        else: self.todays_log = DailySwimLog(date)
+        else:
+            self.todays_log = DailySwimLog(date)
 
     # Function to get standardized date string
     @staticmethod
