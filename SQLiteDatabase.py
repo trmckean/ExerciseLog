@@ -76,17 +76,7 @@ def main():
         controller.get_user_swim_data()
         db.insert(controller.get_date_string(), controller.todays_log.get_yards(),
                   controller.todays_log.get_minutes(), controller.todays_log.get_pace())
-        todays_pace = controller.todays_log.get_pace()
 
-        # Check pace and notify user if they've set a new record
-        # TODO: Put following into function
-        max_pace = db.get_max_pace()[0]
-        if todays_pace > max_pace:
-            print "Nice work! You set a new pace record!"
-        elif todays_pace == max_pace:
-            print "Nice work! You matched your fastest pace!"
-        else:
-            print "Nice job, but you can swim faster next time!"
 
 
 if __name__ == "__main__":
