@@ -3,15 +3,15 @@
 # Imports
 import datetime
 import mmap
+import SQLiteDatabase
 
 
 # Class representing the controller for the program
 class Controller:
-    # Init and open/create file
+    # Init and open/create sqlite database
     def __init__(self):
-        # Create a text file on the desktop to act as a database
-        # If file exists, open the file for writing
-        self.swim_log = open("/Users/TylerMcKean/Desktop/swimlog.txt", "a+")
+        self.db = SQLiteDatabase.Database()
+
 
     # Create a new log entry
     def create_log(self, date=None):
@@ -19,6 +19,8 @@ class Controller:
             self.todays_log = DailySwimLog(self.get_date_string())
         else:
             self.todays_log = DailySwimLog(date)
+
+        return self.todays_log
 
     # Function to get standardized date string
     @staticmethod
@@ -84,13 +86,24 @@ class Controller:
         self.todays_log.set_yards_minutes(yards, minutes)
 
         # Show user pace for daily activity
-        print self.todays_log.get_pace()
+        print "Your pace today was {}".format(self.todays_log.get_pace())
 
     # Function to write user data to the swimLog text file
     def write_data(self):
         # Write data to file for storage
         self.swim_log.write(self.todays_log.__str__())
         print "Wrote data to log!"
+
+    # Check pace and notify user if they've set a new record
+    def check_pace(self):
+        todays_pace = self.todays_log.get_pace()
+        max_pace = self.db.get_max_pace()[0]
+        if todays_pace > max_pace:
+            print "Nice work! You set a new pace record!"
+        elif todays_pace == max_pace:
+            print "Nice work! You matched your fastest pace!"
+        else:
+            print "Nice job, but you can swim faster next time!"
 
     # Function to end program
     def shutdown(self):

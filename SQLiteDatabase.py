@@ -24,7 +24,7 @@ class Database:
         self.cursor.execute("INSERT INTO swim_logs VALUES (?, ?, ?, ?)", log_entry)
         self.connection.commit()
 
-    # Return all entries in db
+    # Print all entries in db
     def get_all_entries(self):
         sql = "SELECT * FROM swim_logs"
         self.cursor.execute(sql)
@@ -36,11 +36,19 @@ class Database:
         self.cursor.execute(sql)
         return self.cursor.fetchall()
 
-    # Return the log entry with maximum pace
+    # Return the maximum pace logged
     def get_max_pace(self):
         sql = "SELECT MAX(pace) FROM swim_logs"
         self.cursor.execute(sql)
         return self.cursor.fetchone()
+
+    # Return the maximum yardage logged
+    def get_max_yards(self):
+        sql = "SELECT MAX(yards) FROM swim_logs"
+        self.cursor.execute(sql)
+        return self.cursor.fetchone()
+
+
 
 
 # Main function to execute test program
@@ -76,7 +84,7 @@ def main():
         if todays_pace > max_pace:
             print "Nice work! You set a new pace record!"
         elif todays_pace == max_pace:
-            print "Nice work! you matched your fastest pace!"
+            print "Nice work! You matched your fastest pace!"
         else:
             print "Nice job, but you can swim faster next time!"
 
