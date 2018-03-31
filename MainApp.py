@@ -1,13 +1,13 @@
 # File containing main application control flow
 
 # Imports
-import SwimLog
+import Controller
 
 
 # Main function controlling application
 def main():
     # Instantiate controller to handle application (Also handles database creation and connection)
-    controller = SwimLog.Controller()
+    controller = Controller.Controller()
 
     # Prompt user if they swam today and handle logging of today's activity
     if controller.prompt_user_initial():
@@ -20,7 +20,6 @@ def main():
                              controller.todays_log.get_minutes(), controller.todays_log.get_pace())
         # Check for new pace record
         controller.check_pace()
-
 
 
 if __name__ == "__main__":

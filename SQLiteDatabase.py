@@ -1,7 +1,7 @@
 # Database using SQLite to store swim logs
 
 # Imports
-import SwimLog
+import Controller
 import sqlite3
 
 
@@ -49,14 +49,12 @@ class Database:
         return self.cursor.fetchone()
 
 
-
-
 # Main function to execute test program
 def main():
     # Testing implementation
     db = Database()
 
-    controller = SwimLog.Controller()
+    controller = Controller.Controller()
     while controller.prompt_user_specific():
         controller.create_log(controller.get_user_date())
         # TODO: Make below functionality into function and clean up breaks
@@ -76,7 +74,6 @@ def main():
         controller.get_user_swim_data()
         db.insert(controller.get_date_string(), controller.todays_log.get_yards(),
                   controller.todays_log.get_minutes(), controller.todays_log.get_pace())
-
 
 
 if __name__ == "__main__":
