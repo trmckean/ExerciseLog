@@ -56,10 +56,22 @@ class Controller:
             return False
 
     # Get specific date from user
-    # TODO: Error check for user input date
+    def get_user_date(self):
+        date = raw_input("Please enter the specific day you would like to enter: (MM/DD/YYYY)\n")
+        if self.validate_date(date):
+            return date
+        else:
+            return self.get_user_date()
+
+    # Function to make sure user date is valid
     @staticmethod
-    def get_user_date():
-        return raw_input("Please enter the specific day you would like to enter: (MM/DD/YYYY)\n")
+    def validate_date(date):
+        try:
+            datetime.datetime.strptime(date, '%m/%d/%Y')
+            return True
+        except ValueError:
+            print "Incorrectly formatted date, try again!"
+            return False
 
     # Function to make sure we haven't logged already today
     def check_duplicate_log(self):
