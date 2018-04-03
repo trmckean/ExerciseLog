@@ -50,9 +50,13 @@ class Controller:
     def prompt_user_specific():
         print "Would you like to add a specific day's log?"
         answer = raw_input("Y/N\n")
-        return answer.upper() == "Y"
+        if answer.upper() == "Y":
+            return True
+        else:
+            return False
 
     # Get specific date from user
+    # TODO: Error check for user input date
     @staticmethod
     def get_user_date():
         return raw_input("Please enter the specific day you would like to enter: (MM/DD/YYYY)\n")
@@ -62,7 +66,7 @@ class Controller:
         # # Check and make sure we aren't adding data from same day
         # mm = mmap.mmap(self.swim_log.fileno(), 0, access=mmap.ACCESS_READ)
         # if mm.find(self.get_date_string()) != -1:
-            print "Already logged swimming today"
+        print "Already logged swimming today"
         #     return False
         # else:
         #     return True
@@ -106,7 +110,7 @@ class Controller:
             print "Nice job, but you can swim faster next time!"
 
     # Function to end program
-    def shutdown(self):
-        # # Close file and end program
-         print "Thank you - Exiting"
-        # self.swim_log.close()
+    @staticmethod
+    def shutdown():
+        # End program
+        print "Thank you - Exiting"

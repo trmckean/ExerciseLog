@@ -12,7 +12,7 @@ def main():
     # Prompt user if they swam today and handle logging of today's activity
     if controller.prompt_user_initial():
         # Instantiate daily log entry object
-        todays_log = controller.create_log()
+        controller.create_log()
         # Get relevant swim data from user
         controller.get_user_swim_data()
         # Insert user data into sqlite database
@@ -20,6 +20,23 @@ def main():
                              controller.todays_log.get_minutes(), controller.todays_log.get_pace())
         # Check for new pace record
         controller.check_pace()
+
+    # Prompt user if they would like to add a specific day and allow them to keep doing so
+    # TODO: Add update support
+    # TODO: Figure out whether to allow overwriting previously written date
+    while controller.prompt_user_specific():
+        # Prompt user for specific date
+        date = controller.get_user_date()
+        # Instantiate new log entry object
+        controller.create_log(date)
+        # Get relevant swim data for date
+        controller.get_user_swim_data()
+        # Insert data into database
+        controller.db.insert(controller.todays_log.date, controller.todays_log.get_yards(),
+                             controller.todays_log.get_minutes(), controller.todays_log.get_pace())
+
+    # Shutdown message
+    controller.shutdown()
 
 
 if __name__ == "__main__":

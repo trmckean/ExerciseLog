@@ -35,22 +35,3 @@ class DailySwimLog:
     # Override __str__ to allow printing of dailySwimLog object
     def __str__(self):
         return "{}    {} yards {} minutes    {}".format(self.date, self.yards, self.minutes, self.get_pace())
-
-
-# Main function
-def main():
-    # Instantiate controller
-    controller = Controller()
-
-    # Check and see if log should be made, then gather data and write to storage
-    if controller.prompt_user_initial() and controller.check_duplicate_log():
-        controller.create_log()
-        controller.get_user_swim_data()
-        controller.write_data()
-
-    # Shutdown
-    controller.shutdown()
-
-
-if __name__ == "__main__":
-    main()
