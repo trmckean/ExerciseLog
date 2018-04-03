@@ -94,16 +94,14 @@ class Controller:
     def write_data(self):
         # # Write data to file for storage
         # self.swim_log.write(self.todays_log.__str__())
-         print "Wrote data to log!"
+        print "Wrote data to log!"
 
     # Check pace and notify user if they've set a new record
     def check_pace(self):
         todays_pace = self.todays_log.get_pace()
         max_pace = self.db.get_max_pace()[0]
-        if todays_pace > max_pace:
+        if todays_pace == max_pace:
             print "Nice work! You set a new pace record!"
-        elif todays_pace == max_pace:
-            print "Nice work! You matched your fastest pace!"
         else:
             print "Nice job, but you can swim faster next time!"
 
