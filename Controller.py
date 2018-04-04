@@ -121,6 +121,12 @@ class Controller:
         else:
             print "Nice job, but you can swim faster next time!"
 
+    # Notify user of all yards logged
+    def show_total_yards(self):
+        # Sum of yards from sql query
+        sum_yards = self.db.get_total_yards()
+        print "Total yards logged: {}".format(sum_yards)
+
     # Function to end program
     @staticmethod
     def shutdown():

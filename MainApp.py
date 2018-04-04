@@ -35,6 +35,10 @@ def main():
         controller.db.insert(controller.todays_log.date, controller.todays_log.get_yards(),
                              controller.todays_log.get_minutes(), controller.todays_log.get_pace())
 
+    # Show user how many swim yards/miles logged
+    controller.show_total_yards()
+
+
     # Shutdown message
     controller.shutdown()
 

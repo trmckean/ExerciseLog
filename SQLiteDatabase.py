@@ -48,6 +48,12 @@ class Database:
         self.cursor.execute(sql)
         return self.cursor.fetchone()
 
+    # Return a total of all yards logged
+    def get_total_yards(self):
+        sql = "SELECT SUM(yards) FROM swim_logs"
+        self.cursor.execute(sql)
+        return self.cursor.fetchone()[0]
+
 
 # Main function to execute test program
 def main():
