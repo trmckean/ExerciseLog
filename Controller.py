@@ -11,15 +11,11 @@ import os.path
 class Controller:
     # Init and open/create sqlite database
     def __init__(self):
-        self.check_db_exists()
         self.db = SQLiteDatabase.Database()
 
-    # Check and see if DB exists, if not create it for use with rest of program
+    # Check and see if DB exists, return value
     def check_db_exists(self):
-        if not os.path.isfile('swim_log.db'):
-            print "Database doesn't exist. Creating it"
-        else:
-            print "Database exists"
+        return os.path.isfile('swim_log.db')
 
     # Create a new log entry
     # TODO: Fix class import/calling

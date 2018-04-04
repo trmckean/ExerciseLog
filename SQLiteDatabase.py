@@ -11,12 +11,24 @@ class Database:
     def __init__(self):
         self.connection = sqlite3.connect("swim_log.db")
         self.cursor = self.connection.cursor()
+        # Check and see if default table exists, if not create it
+        if not self.check_swim_log_table_exits():
+            self.create_swim_log_table()
 
     # Create initial table
     def create_swim_log_table(self):
         self.cursor.execute("""CREATE TABLE swim_logs
-                              (date TEXT, yards INTEGER, time INTEGER )
+                              (date TEXT, yards INTEGER, time INTEGER, pace INTEGER )
                               """)
+
+    # Check and see if swim_log table exists
+    def check_swim_log_table_exits(self):
+        sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='swim_logs'"
+        self.cursor.execute(sql)
+        if self.cursor.fetchone() is not None:
+            return True
+        else:
+            return False
 
     # Insert data into table
     def insert(self, date, yards, time, pace):
