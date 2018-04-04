@@ -37,6 +37,7 @@ def main():
 
     # Show user how many swim yards/miles logged
     controller.show_total_yards()
+    controller.show_total_miles()
 
 
     # Shutdown message

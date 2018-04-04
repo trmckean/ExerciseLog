@@ -127,6 +127,17 @@ class Controller:
         sum_yards = self.db.get_total_yards()
         print "Total yards logged: {}".format(sum_yards)
 
+    # Convert yardage to miles
+    def yards_to_miles(self, yards):
+        # A mile is 1760 yards
+        return float(yards) / 1760
+
+    # Notify user of mileage logged
+    def show_total_miles(self):
+        # Sum of yards from sql query
+        sum_yards = self.db.get_total_yards()
+        print "Total miles logged: %.2f" % self.yards_to_miles(sum_yards)
+
     # Function to end program
     @staticmethod
     def shutdown():
