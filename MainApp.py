@@ -39,7 +39,6 @@ def main():
     controller.show_total_yards()
     controller.show_total_miles()
 
-
     # Shutdown message
     controller.shutdown()
 
