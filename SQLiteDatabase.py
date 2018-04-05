@@ -74,3 +74,7 @@ class Database:
         sql = "SELECT count(1) FROM swim_logs WHERE date =?"
         self.cursor.execute(sql, date)
         return self.cursor.fetchone()[0]
+
+    # Close the cursor connection to db
+    def shutdown(self):
+        self.connection.close()

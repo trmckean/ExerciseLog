@@ -23,12 +23,12 @@ def main():
 
     # Prompt user if they would like to add a specific day and allow them to keep doing so
     # TODO: Add update support
-    # TODO: Figure out whether to allow overwriting previously written date
     while controller.prompt_user_specific():
         # Prompt user for specific date
         date = controller.get_user_date()
         # Check and see if log already exists, if so leave loop
         if controller.db.check_log_entry_exists(date):
+            print "The log entry for {} already exists! Cannot overwrite previous logs at this time".format(date)
             break
         # Instantiate new log entry object
         controller.create_log(date)
