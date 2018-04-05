@@ -145,6 +145,7 @@ class Controller:
 
     # Function to end program
     @staticmethod
+    # TODO: Add cursor close to db
     def shutdown():
         # End program
         print "Thank you - Exiting"

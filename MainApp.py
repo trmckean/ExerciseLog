@@ -10,7 +10,7 @@ def main():
     controller = Controller.Controller()
 
     # Prompt user if they swam today and handle logging of today's activity
-    if controller.prompt_user_initial():
+    if controller.prompt_user_initial() and not controller.db.check_log_entry_exists(controller.get_date_string()):
         # Instantiate daily log entry object
         controller.create_log()
         # Get relevant swim data from user
@@ -27,6 +27,9 @@ def main():
     while controller.prompt_user_specific():
         # Prompt user for specific date
         date = controller.get_user_date()
+        # Check and see if log already exists, if so leave loop
+        if controller.db.check_log_entry_exists(date):
+            break
         # Instantiate new log entry object
         controller.create_log(date)
         # Get relevant swim data for date

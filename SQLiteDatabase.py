@@ -11,6 +11,7 @@ class Database:
     def __init__(self):
         self.connection = sqlite3.connect("swim_log.db")
         self.cursor = self.connection.cursor()
+
         # Check and see if default table exists, if not create it
         if not self.check_swim_log_table_exits():
             self.create_swim_log_table()
@@ -66,33 +67,10 @@ class Database:
         self.cursor.execute(sql)
         return self.cursor.fetchone()[0]
 
-
-# Main function to execute test program
-def main():
-    # Testing implementation
-    db = Database()
-
-    controller = Controller.Controller()
-    while controller.prompt_user_specific():
-        controller.create_log(controller.get_user_date())
-        # TODO: Make below functionality into function and clean up breaks
-        dates = db.get_previous_dates()
-        for date in dates:
-            if not date[0] in controller.todays_log.date:
-                controller.get_user_swim_data()
-                db.insert(controller.todays_log.date, controller.todays_log.get_yards(),
-                          controller.todays_log.get_minutes(), controller.todays_log.get_pace())
-                break
-            else:
-                print "Can't update previously written daily logs at this point"
-                break
-
-    if controller.prompt_user_initial():
-        controller.create_log()
-        controller.get_user_swim_data()
-        db.insert(controller.get_date_string(), controller.todays_log.get_yards(),
-                  controller.todays_log.get_minutes(), controller.todays_log.get_pace())
-
-
-if __name__ == "__main__":
-    main()
+    # Return whether or not a record exists given the date
+    def check_log_entry_exists(self, datestring):
+        # SQL statement returns 0 if not previously logged, and 1 if it exists
+        date = (datestring, )
+        sql = "SELECT count(1) FROM swim_logs WHERE date =?"
+        self.cursor.execute(sql, date)
+        return self.cursor.fetchone()[0]
