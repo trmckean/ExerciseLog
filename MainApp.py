@@ -8,12 +8,8 @@ import Controller
 def main():
     # Instantiate controller to handle application (Also handles database creation and connection)
     controller = Controller.Controller()
-    # Testing update command
-    controller.create_log()
-    date_to_update = raw_input("Enter a date to update")
-    new_info = [999, 99, 999]
-    controller.db.update_previous_date(date_to_update, new_info[0], new_info[1], new_info[2])
 
+    # TODO: Improve Main app logic to not have nearly identical loops
     # Prompt user if they swam today and handle logging of today's activity
     if controller.prompt_user_initial() and not controller.db.check_log_entry_exists(controller.get_date_string()):
         # Instantiate daily log entry object
@@ -27,7 +23,6 @@ def main():
         controller.check_pace()
 
     # Prompt user if they would like to add a specific day and allow them to keep doing so
-    # TODO: Add update support
     while controller.prompt_user_specific():
         # Prompt user for specific date
         date = controller.get_user_date()
@@ -42,6 +37,21 @@ def main():
         # Insert data into database
         controller.db.insert(controller.todays_log.date, controller.todays_log.get_yards(),
                              controller.todays_log.get_minutes(), controller.todays_log.get_pace())
+
+    # Prompt user if they would like to update a previous entry
+    while controller.prompt_update_entry():
+        # Prompt user for specific date
+        date = controller.get_user_date()
+        if not controller.db.check_log_entry_exists(date):
+            print "The log entry for {} does not exist. Cannot update log".format(date)
+            break
+        # Instantiate new log entry object
+        controller.create_log(date)
+        # Get relevant swim data for date
+        controller.get_user_swim_data()
+        # Insert data into database
+        controller.db.update_previous_date(controller.todays_log.date, controller.todays_log.get_yards(),
+                                           controller.todays_log.get_minutes(), controller.todays_log.get_pace())
 
     # Show user how many swim yards/miles logged
     controller.show_total_yards()

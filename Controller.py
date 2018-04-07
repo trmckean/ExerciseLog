@@ -143,6 +143,16 @@ class Controller:
         sum_yards = self.db.get_total_yards()
         print "Total miles logged: %.2f" % self.yards_to_miles(sum_yards)
 
+    def prompt_update_entry(self):
+        # Ask user if they would like to update an entry
+        print "Would you like to update an entry?"
+        response = raw_input("Y/N\n")
+        if response.upper() == "Y":
+            return True
+        else:
+            return False
+
+
     # Function to end program
     def shutdown(self):
         # End program
