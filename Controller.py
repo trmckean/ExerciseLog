@@ -144,7 +144,6 @@ class Controller:
         print "Total miles logged: %.2f" % self.yards_to_miles(sum_yards)
 
     # Function to end program
-    # TODO: Add cursor close to db
     def shutdown(self):
         # End program
         self.db.shutdown()

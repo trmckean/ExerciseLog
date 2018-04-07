@@ -8,6 +8,11 @@ import Controller
 def main():
     # Instantiate controller to handle application (Also handles database creation and connection)
     controller = Controller.Controller()
+    # Testing update command
+    controller.create_log()
+    date_to_update = raw_input("Enter a date to update")
+    new_info = [999, 99, 999]
+    controller.db.update_previous_date(date_to_update, new_info[0], new_info[1], new_info[2])
 
     # Prompt user if they swam today and handle logging of today's activity
     if controller.prompt_user_initial() and not controller.db.check_log_entry_exists(controller.get_date_string()):

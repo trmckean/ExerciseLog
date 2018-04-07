@@ -75,6 +75,14 @@ class Database:
         self.cursor.execute(sql, date)
         return self.cursor.fetchone()[0]
 
+    # Update an existing entry in the database based on date with provided yards, time, and pace
+    def update_previous_date(self, date_string, yards, time, pace):
+        date = (date_string,)
+        # TODO: Find out if the below string formatting is secure
+        sql = "UPDATE swim_logs SET yards = {}, time = {}, pace = {} WHERE date =?".format(yards, time, pace)
+        self.cursor.execute(sql, date)
+        self.connection.commit()
+
     # Close the cursor connection to db
     def shutdown(self):
         self.connection.close()
