@@ -86,9 +86,6 @@ class Controller:
         while not yards.isdigit() or int(yards) == 0:
             print "Not a number, please enter something valid."
             yards = raw_input("How many yards?\n")
-        # Standardize written string length for increased readability
-        while len(yards) < 4:
-            yards = yards + " "
         minutes = raw_input("How long did you swim for? (in minutes)\n")
         # Make sure minutes is a valid number
         while not minutes.isdigit() or int(minutes) == 0:
