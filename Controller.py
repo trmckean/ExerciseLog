@@ -78,16 +78,6 @@ class Controller:
             print "Incorrectly formatted date, try again!"
             return False
 
-    # Function to make sure we haven't logged already today
-    def check_duplicate_log(self):
-        # # Check and make sure we aren't adding data from same day
-        # mm = mmap.mmap(self.swim_log.fileno(), 0, access=mmap.ACCESS_READ)
-        # if mm.find(self.get_date_string()) != -1:
-        print "Already logged swimming today"
-        #     return False
-        # else:
-        #     return True
-
     # Function to get data from user and add it to log entry
     def get_user_swim_data(self):
         # Prompt user for how many yards and how long
@@ -151,7 +141,6 @@ class Controller:
             return True
         else:
             return False
-
 
     # Function to end program
     def shutdown(self):
