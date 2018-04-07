@@ -96,13 +96,7 @@ class Controller:
         self.todays_log.set_yards_minutes(yards, minutes)
 
         # Show user pace for daily activity
-        print "Your pace today was {}".format(self.todays_log.get_pace())
-
-    # Function to write user data to the swimLog text file
-    def write_data(self):
-        # # Write data to file for storage
-        # self.swim_log.write(self.todays_log.__str__())
-        print "Wrote data to log!"
+        print "Your pace was {}".format(self.todays_log.get_pace())
 
     # Check pace and notify user if they've set a new record
     def check_pace(self):
@@ -138,7 +132,6 @@ class Controller:
             return True
         else:
             return False
-
 
     # Function to end program
     def shutdown(self):
