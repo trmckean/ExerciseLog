@@ -53,7 +53,7 @@ class Database:
     def get_max_pace(self):
         sql = "SELECT MAX(pace) FROM swim_logs"
         self.cursor.execute(sql)
-        return self.cursor.fetchone()
+        return self.cursor.fetchone()[0]
 
     # Return the maximum yardage logged
     def get_max_yards(self):
