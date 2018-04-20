@@ -41,7 +41,7 @@ class Database:
     def get_all_entries(self):
         sql = "SELECT * FROM swim_logs"
         self.cursor.execute(sql)
-        print self.cursor.fetchall()
+        return self.cursor.fetchall()
 
     # Return a list of all dates stored
     def get_previous_dates(self):
