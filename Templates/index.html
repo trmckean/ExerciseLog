@@ -1,17 +1,10 @@
-<html>
-    <head>
-        {% if title %}
-        <title>{{ title }} - Exercise Log</title>
-        {% else %}
-        <title> Welcome to the Exercise Log!</title>
-        {% endif %}
-    </head>
-    <body>
-        <h1>Hello, {{ user.username }}!</h1>
-        <div>Max pace: {{pace}} yards/hour</div>
-        <div><p><b>PREVIOUS ENTRIES</b></p></div>
-        {% for entry in entries %}
-        <div><p>Date: {{entry[0]}} Yard: {{entry[1]}} Minutes: {{entry[2]}} Pace: {{entry[3]}}</p></div>
-        {% endfor %}
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hello, {{ user.username }}!</h1>
+    <div>Max pace: {{pace}} yards/hour</div>
+    <div><p><b>PREVIOUS ENTRIES</b></p></div>
+    {% for entry in entries %}
+    <div><p>Date: {{entry[0]}} Yard: {{entry[1]}} Minutes: {{entry[2]}} Pace: {{entry[3]}}</p></div>
+    {% endfor %}
+{% endblock %}

@@ -101,7 +101,7 @@ class Controller:
     # Check pace and notify user if they've set a new record
     def check_pace(self):
         todays_pace = self.todays_log.get_pace()
-        max_pace = self.db.get_max_pace()[0]
+        max_pace = self.db.get_max_pace()
         if todays_pace == max_pace:
             print "Nice work! You set a new pace record!"
         else:
