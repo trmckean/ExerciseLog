@@ -8,8 +8,11 @@ import sqlite3
 # Class holding SQLite database
 class Database:
     # Init and open/create DB file
-    def __init__(self):
-        self.connection = sqlite3.connect("swim_log.db")
+    def __init__(self, path=None):
+        if path is None:
+            self.connection = sqlite3.connect("swim_log.db")
+        else:
+            self.connection = sqlite3.connect(path)
         self.cursor = self.connection.cursor()
 
         # Check and see if default table exists, if not create it
@@ -86,3 +89,4 @@ class Database:
     # Close the cursor connection to db
     def shutdown(self):
         self.connection.close()
+

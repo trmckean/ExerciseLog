@@ -1,14 +1,14 @@
 # Testing flask
 from flask import Flask
 from flask import render_template
-from SQLiteDatabase import Database
+from Backend.SQLiteDatabase import Database
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def hello():
-    db = Database()
+    db = Database("../Backend/swim_log.db")
     max_pace = db.get_max_pace()
     previous_entries = db.get_all_entries()
     user = {'username': 'Tyler'}
