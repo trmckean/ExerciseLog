@@ -1,7 +1,8 @@
 # File containing controller class to control application flow
 
 # Imports
-from Backend import SQLiteDatabase, DailySwimLog
+import SQLiteDatabase
+import DailySwimLog
 import datetime
 import os.path
 from shutil import copyfile

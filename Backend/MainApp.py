@@ -1,7 +1,7 @@
 # File containing main application control flow
 
 # Imports
-from Backend import Controller
+import Controller
 
 
 # Main function controlling application

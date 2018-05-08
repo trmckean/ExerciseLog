@@ -1,4 +1,4 @@
-from Frontend.app import db
+from app import db
 
 
 # Class representing database for users
