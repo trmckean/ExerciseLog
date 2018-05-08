@@ -53,6 +53,10 @@ def main():
         controller.db.update_previous_date(controller.todays_log.date, controller.todays_log.get_yards(),
                                            controller.todays_log.get_minutes(), controller.todays_log.get_pace())
 
+    # Prompt user if they would like to backup the database
+    if controller.prompt_user_backup():
+        controller.backup_current_db()
+
     # Show user how many swim yards/miles logged
     controller.show_total_yards()
     controller.show_total_miles()

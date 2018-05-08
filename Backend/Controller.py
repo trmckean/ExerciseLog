@@ -5,6 +5,7 @@ import SQLiteDatabase
 import DailySwimLog
 import datetime
 import os.path
+from shutil import copyfile
 
 
 # Class representing the controller for the program
@@ -44,6 +45,16 @@ class Controller:
     def prompt_user_initial(self):
         # Prompt the user about any swimming done today
         print "Did you swim today? {}".format(self.get_date_string())
+        answer = raw_input("Y/N\n")
+        if answer.upper() == "Y":
+            return True
+        else:
+            return False
+
+    # Function to prompt user if they would like to backup the db
+    @staticmethod
+    def prompt_user_backup():
+        print "Would you like to backup the database?"
         answer = raw_input("Y/N\n")
         if answer.upper() == "Y":
             return True
@@ -124,6 +135,7 @@ class Controller:
         sum_yards = self.db.get_total_yards()
         print "Total miles logged: %.2f" % self.yards_to_miles(sum_yards)
 
+    # Prompt user if they want to update a specific entry
     def prompt_update_entry(self):
         # Ask user if they would like to update an entry
         print "Would you like to update an entry?"
@@ -132,6 +144,18 @@ class Controller:
             return True
         else:
             return False
+
+    # Backup the current database to a new directory called DB_Backup
+    @staticmethod
+    def backup_current_db():
+        # Path contained in program file structure
+        source = "swim_log.db"
+        destination = "../DB_backup/swim_log_backup.db"
+        # Copy db
+        try:
+            copyfile(source, destination)
+        except IOError:
+            print "Destination not writable"
 
     # Function to end program
     def shutdown(self):
