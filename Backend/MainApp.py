@@ -1,7 +1,7 @@
 # File containing main application control flow
 
 # Imports
-import Controller
+from Backend import Controller
 
 
 # Main function controlling application
@@ -28,7 +28,7 @@ def main():
         date = controller.get_user_date()
         # Check and see if log already exists, if so leave loop
         if controller.db.check_log_entry_exists(date):
-            print "The log entry for {} already exists! Cannot overwrite previous logs at this time".format(date)
+            print('The log entry for {date} already exists! Cannot overwrite previous logs at this time')
             break
         # Instantiate new log entry object
         controller.create_log(date)
@@ -43,7 +43,7 @@ def main():
         # Prompt user for specific date
         date = controller.get_user_date()
         if not controller.db.check_log_entry_exists(date):
-            print "The log entry for {} does not exist. Cannot update log".format(date)
+            print("The log entry for {} does not exist. Cannot update log".format(date))
             break
         # Instantiate new log entry object
         controller.create_log(date)

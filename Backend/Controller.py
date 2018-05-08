@@ -1,8 +1,7 @@
 # File containing controller class to control application flow
 
 # Imports
-import SQLiteDatabase
-import DailySwimLog
+from Backend import SQLiteDatabase, DailySwimLog
 import datetime
 import os.path
 from shutil import copyfile
@@ -44,8 +43,8 @@ class Controller:
     # Function to prompt user about if they have data to add
     def prompt_user_initial(self):
         # Prompt the user about any swimming done today
-        print "Did you swim today? {}".format(self.get_date_string())
-        answer = raw_input("Y/N\n")
+        print(('Did you swim today? {}'.format(self.get_date_string())))
+        answer = input("Y/N\n")
         if answer.upper() == "Y":
             return True
         else:
@@ -54,8 +53,8 @@ class Controller:
     # Function to prompt user if they would like to backup the db
     @staticmethod
     def prompt_user_backup():
-        print "Would you like to backup the database?"
-        answer = raw_input("Y/N\n")
+        print('Would you like to backup the database?')
+        answer = input('Y/N\n')
         if answer.upper() == "Y":
             return True
         else:
@@ -64,8 +63,8 @@ class Controller:
     # Function to see if user wants to add a specific day
     @staticmethod
     def prompt_user_specific():
-        print "Would you like to add a specific day's log?"
-        answer = raw_input("Y/N\n")
+        print("Would you like to add a specific day's log?")
+        answer = input("Y/N\n")
         if answer.upper() == "Y":
             return True
         else:
@@ -73,7 +72,7 @@ class Controller:
 
     # Get specific date from user
     def get_user_date(self):
-        date = raw_input("Please enter the specific day you would like to enter: (MM/DD/YYYY)\n")
+        date = input("Please enter the specific day you would like to enter: (MM/DD/YYYY)\n")
         if self.validate_date(date):
             return date
         else:
@@ -86,43 +85,43 @@ class Controller:
             datetime.datetime.strptime(date, '%m/%d/%Y')
             return True
         except ValueError:
-            print "Incorrectly formatted date, try again!"
+            print("Incorrectly formatted date, try again!")
             return False
 
     # Function to get data from user and add it to log entry
     def get_user_swim_data(self):
         # Prompt user for how many yards and how long
-        yards = raw_input("How many yards?\n")
+        yards = input("How many yards?\n")
         # Make sure yards is a number
         while not yards.isdigit() or int(yards) == 0:
-            print "Not a number, please enter something valid."
-            yards = raw_input("How many yards?\n")
-        minutes = raw_input("How long did you swim for? (in minutes)\n")
+            print("Not a number, please enter something valid.")
+            yards = input("How many yards?\n")
+        minutes = input("How long did you swim for? (in minutes)\n")
         # Make sure minutes is a valid number
         while not minutes.isdigit() or int(minutes) == 0:
-            print "Not a valid entry for minutes, please enter something valid."
-            minutes = raw_input("How long did you swim for? (in minutes)\n")
+            print("Not a valid entry for minutes, please enter something valid.")
+            minutes = input("How long did you swim for? (in minutes)\n")
 
         # Set data for log entry object
         self.todays_log.set_yards_minutes(yards, minutes)
 
         # Show user pace for daily activity
-        print "Your pace was {}".format(self.todays_log.get_pace())
+        print("Your pace was {}".format(self.todays_log.get_pace()))
 
     # Check pace and notify user if they've set a new record
     def check_pace(self):
         todays_pace = self.todays_log.get_pace()
         max_pace = self.db.get_max_pace()
         if todays_pace == max_pace:
-            print "Nice work! You set a new pace record!"
+            print("Nice work! You set a new pace record!")
         else:
-            print "Nice job, but you can swim faster next time!"
+            print("Nice job, but you can swim faster next time!")
 
     # Notify user of all yards logged
     def show_total_yards(self):
         # Sum of yards from sql query
         sum_yards = self.db.get_total_yards()
-        print "Total yards logged: {}".format(sum_yards)
+        print("Total yards logged: {}".format(sum_yards))
 
     # Convert yardage to miles
     def yards_to_miles(self, yards):
@@ -133,13 +132,13 @@ class Controller:
     def show_total_miles(self):
         # Sum of yards from sql query
         sum_yards = self.db.get_total_yards()
-        print "Total miles logged: %.2f" % self.yards_to_miles(sum_yards)
+        print("Total miles logged: %.2f" % self.yards_to_miles(sum_yards))
 
     # Prompt user if they want to update a specific entry
     def prompt_update_entry(self):
         # Ask user if they would like to update an entry
-        print "Would you like to update an entry?"
-        response = raw_input("Y/N\n")
+        print("Would you like to update an entry?")
+        response = input("Y/N\n")
         if response.upper() == "Y":
             return True
         else:
@@ -155,10 +154,10 @@ class Controller:
         try:
             copyfile(source, destination)
         except IOError:
-            print "Destination not writable"
+            print("Destination not writable")
 
     # Function to end program
     def shutdown(self):
         # End program
         self.db.shutdown()
-        print "Thank you - Exiting"
+        print("Thank you - Exiting")

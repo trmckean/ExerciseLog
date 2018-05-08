@@ -1,7 +1,6 @@
 # Database using SQLite to store swim logs
 
 # Imports
-import Controller
 import sqlite3
 
 
