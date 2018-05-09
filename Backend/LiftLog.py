@@ -2,7 +2,6 @@
 # First iteration only supports specific weight lifting program
 
 # Standard imports
-import datetime
 
 
 class LiftLog:

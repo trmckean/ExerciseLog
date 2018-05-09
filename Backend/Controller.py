@@ -15,7 +15,8 @@ class Controller:
         self.db = SQLiteDatabase.Database()
 
     # Check and see if DB exists, return value
-    def check_db_exists(self):
+    @staticmethod
+    def check_db_exists():
         return os.path.isfile('swim_log.db')
 
     # Create a new log entry
@@ -125,7 +126,8 @@ class Controller:
         print("Total yards logged: {}".format(sum_yards))
 
     # Convert yardage to miles
-    def yards_to_miles(self, yards):
+    @staticmethod
+    def yards_to_miles(yards):
         # A mile is 1760 yards
         return float(yards) / 1760
 
@@ -136,7 +138,8 @@ class Controller:
         print("Total miles logged: %.2f" % self.yards_to_miles(sum_yards))
 
     # Prompt user if they want to update a specific entry
-    def prompt_update_entry(self):
+    @staticmethod
+    def prompt_update_entry():
         # Ask user if they would like to update an entry
         print("Would you like to update an entry?")
         response = input("Y/N\n")

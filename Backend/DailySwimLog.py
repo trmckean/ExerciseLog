@@ -1,9 +1,6 @@
 # SwimLog keeps track of swimming activity
 
 # Imports
-import datetime
-import mmap
-import SQLiteDatabase
 
 
 # Class representing a daily log object i.e. the log containing date, yards, and minutes
