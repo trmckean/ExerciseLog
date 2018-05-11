@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hello, {{ user.username }}!</h1>
+    <h1>Hello, {{ current_user.username }}!</h1>
     <div>Max pace: {{pace}} yards/hour</div>
     <div><p><b>PREVIOUS ENTRIES</b></p></div>
     {% for entry in entries %}
     <div><p>Date: {{entry[0]}} Yard: {{entry[1]}} Minutes: {{entry[2]}} Pace: {{entry[3]}}</p></div>
+    {% endfor %}
+    <div><p><b>POSTS</b></p></div>
+    {% for post in posts %}
+    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
     {% endfor %}
 {% endblock %}
