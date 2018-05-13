@@ -12,6 +12,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    about_me = db.Column(db.DateTime, default=datetime.utcnow)
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Function for user to set password (stores hash not pass)
     def set_password(self, password):
@@ -41,6 +43,8 @@ class Post(db.Model):
     # For convenient printing
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+# TODO: Class representing table for exercise log by a user
 
 
 # User loader function for flask-login extension

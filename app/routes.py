@@ -6,6 +6,7 @@ from Backend.SQLiteDatabase import Database
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
+from datetime import datetime
 
 
 @app.route('/')
@@ -63,6 +64,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+
 # User Profile
 @app.route('/user/<username>')
 @login_required
@@ -74,3 +76,10 @@ def user(username):
     ]
     return render_template('user.html', user=user, posts=posts)
 
+
+# Function to track user's last time on the app
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
