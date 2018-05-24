@@ -9,6 +9,7 @@ followers = db.Table('followers',
                      db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
                      db.Column('followed_id', db.Integer, db.ForeignKey('user.id')))
 
+
 # Class representing database for users
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
